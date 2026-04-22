@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre de Franquia - Checkout</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome (para popup icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="app-container" id="app-container" style="display: none;">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <a href="../index.html" class="logo-link">
+                    <img src="../assets/logo-LDF-_2_ (1).png" alt="Livre de Franquia" class="logo-img">
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-steps" id="progress-steps">
+                    <!-- Inject by JS -->
+                </div>
+            </div>
+
+            <!-- Mobile Summary Toggle -->
+            <div class="mobile-summary" id="mobile-summary">
+                <button class="mobile-summary-btn" id="mobile-summary-btn">
+                    <div class="btn-left">
+                        <i data-lucide="shield" class="icon-primary"></i>
+                        <span>Ver resumo do plano</span>
+                    </div>
+                    <div class="btn-right">
+                        <span class="price-text" id="mobile-price">R$ 0,00</span>
+                        <i data-lucide="chevron-down" id="mobile-summary-icon"></i>
+                    </div>
+                </button>
+                <div class="mobile-summary-content" id="mobile-summary-content" style="display: none;">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Layout Grid -->
+            <div class="layout-grid">
+
+                <!-- Left Side: Form Steps -->
+                <div class="layout-main">
+                    <div class="card card-form">
+
+                        <!-- STEP 1: Personal Data -->
+                        <div id="step-1" class="step-content fade-in">
+                            <div class="step-header">
+                                <h2>Você tomou a decisão certa. Livre-se da franquia!</h2>
+                                <p>Preencha os dados e conclua sua compra.</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>CPF *</label>
+                                    <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                                    <span class="error-msg" id="err-cpf"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail *</label>
+                                    <input type="email" id="email" placeholder="seu@email.com" required>
+                                    <span class="error-msg" id="err-email"></span>
+                                </div>
+                                <div class="form-group span-2">
+                                    <label>Nome completo *</label>
+                                    <input type="text" id="nomeCompleto" placeholder="Nome e sobrenome" required>
+                                    <span class="error-msg" id="err-nomeCompleto"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone Celular *</label>
+                                    <input type="text" id="celular" placeholder="(00) 00000-0000" required>
+                                    <span class="error-msg" id="err-celular"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone</label>
+                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
+                                    <span class="error-msg" id="err-telefone"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sexo *</label>
+                                    <select id="sexo" required>
+                                        <option value="">Selecione</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                    <span class="error-msg" id="err-sexo"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data de Nascimento *</label>
+                                    <input type="text" id="dataNascimento" placeholder="DD/MM/AAAA" required>
+                                    <span class="error-msg" id="err-dataNascimento"></span>
+                                </div>
+                                <div class="form-group span-2">
+                                    <label>Nome Social</label>
+                                    <input type="text" id="nomeSocial" placeholder="Opcional">
+                                </div>
+                            </div>
+
+                            <div class="step-footer right">
+                                <button class="btn btn-primary" id="btn-next-1">Avançar</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Address Data -->
+                        <div id="step-2" class="step-content fade-in" style="display: none;">
+                            <div class="step-header">
+                                <h2>Falta pouco…</h2>
+                                <p>Confirme seu endereço (local de risco) para finalizar o cadastro.</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>CEP *</label>
+                                    <input type="text" id="cep" placeholder="00000-000" required>
+                                    <span class="error-msg" id="err-cep"></span>
+                                </div>
+                                <div class="form-group flex-end">
+                                    <p class="cep-loading" id="cep-loading" style="display: none;">Buscando endereço…</p>
+                                </div>
+                                <div class="form-group span-2">
+                                    <label>Logradouro *</label>
+                                    <input type="text" id="logradouro" placeholder="Rua, Avenida, etc." required>
+                                    <span class="error-msg" id="err-logradouro"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Número *</label>
+                                    <input type="text" id="numero" placeholder="123" required>
+                                    <span class="error-msg" id="err-numero"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Complemento</label>
+                                    <input type="text" id="complemento" placeholder="Apto, Bloco, etc.">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bairro *</label>
+                                    <input type="text" id="bairro" placeholder="Bairro" required>
+                                    <span class="error-msg" id="err-bairro"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cidade *</label>
+                                    <input type="text" id="cidade" placeholder="Cidade" required>
+                                    <span class="error-msg" id="err-cidade"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado (UF) *</label>
+                                    <select id="estado" required>
+                                        <option value="">Selecione</option>
+                                    </select>
+                                    <span class="error-msg" id="err-estado"></span>
+                                </div>
+                            </div>
+
+                            <div class="step-footer between">
+                                <button class="btn btn-outline" id="btn-back-2">Voltar</button>
+                                <button class="btn btn-primary" id="btn-next-2">Avançar</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Payment Data -->
+                        <div id="step-3" class="step-content fade-in" style="display: none;">
+                            <div class="step-header">
+                                <h2>Última etapa para ficar Livre…</h2>
+                                <p>Informe os dados do cartão para emitir seu certificado...</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group span-2">
+                                    <label>Parcelamento *</label>
+                                    <select id="parcelas" required>
+                                        <option value="">Selecione</option>
+                                    </select>
+                                    <span class="error-msg" id="err-parcelas"></span>
+                                </div>
+                                <div class="form-group span-2 input-icon-wrapper">
+                                    <label>Número do cartão *</label>
+                                    <input type="text" id="numeroCartao" placeholder="0000 0000 0000 0000" required>
+                                    <span class="input-icon" id="card-icon-container"
+                                        style="display:flex;align-items:center;height:100%"><i
+                                            data-lucide="credit-card"></i></span>
+                                    <span class="error-msg" id="err-numeroCartao"></span>
+                                </div>
+                                <div class="form-group span-2">
+                                    <label>Titular do cartão *</label>
+                                    <input type="text" id="titularCartao" placeholder="Nome como está no cartão" required>
+                                    <span class="error-msg" id="err-titularCartao"></span>
+                                </div>
+                                <div class="form-group grid-3 span-2">
+                                    <div>
+                                        <label>Mês *</label>
+                                        <select id="mesExpiracao" required>
+                                            <option value="">Mês</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Ano *</label>
+                                        <select id="anoExpiracao" required>
+                                            <option value="">Ano</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>CVV *</label>
+                                        <input type="text" id="cvv" placeholder="000" required>
+                                    </div>
+                                </div>
+                                <div class="form-group span-2" style="margin-top: -10px;">
+                                    <span class="error-msg" id="err-expiracao"></span>
+                                    <span class="error-msg" id="err-cvv"></span>
+                                </div>
+                            </div>
+
+                            <div class="step-footer between">
+                                <button class="btn btn-outline" id="btn-back-3">Voltar</button>
+                                <button class="btn btn-primary icon-btn" id="btn-submit">
+                                    <i data-lucide="lock" class="btn-icon"></i>
+                                    <span>Finalizar compra</span>
+                                </button>
+                            </div>
+
+                            <p class="security-note">
+                                <i data-lucide="lock" class="icon-small"></i>
+                                Seus dados estão protegidos com criptografia de ponta a ponta.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Side: Desktop Plan Summary -->
+                <div class="layout-sidebar">
+                    <div class="card card-summary sticky" id="desktop-summary">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Plan Selection Fallback -->
+    <div class="no-plan-container" id="no-plan-container" style="display: none;">
+        <div class="card card-form centered">
+            <h2>Selecione um plano para continuar</h2>
+            <p>Você precisa escolher um plano antes de prosseguir com o checkout.</p>
+            <a href="../index.html#planos" class="btn btn-primary">
+                Voltar para planos
+            </a>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Livre de Franquia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Exit Popup + Cookie Banner + Attribution -->
+    <script>
+    window.LDF_POPUP_CONFIG = {
+      webhookUrl: 'https://n8n.grupofbn.com.br/webhook/popupldf',
+      ga4Id: 'G-B8GQREK0F3',
+      metaPixelId: '2079410829306095'
+    };
+    </script>
+    <link rel="stylesheet" href="../popup/popup.css">
+    <link rel="stylesheet" href="../popup/cookie-banner.css">
+    <script src="../popup/ldf-global.js"></script>
+    <script src="../popup/cookie-banner.js"></script>
+    <script src="../popup/tracking.js"></script>
+    <script src="../popup/popup.js"></script>
+</body>
+
+</html>

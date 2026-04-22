@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre de Franquia - Erro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .message-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--background);
+        }
+
+        .message-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+        }
+
+        .message-card {
+            background-color: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            max-width: 32rem;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media(min-width: 640px) {
+            .message-card {
+                padding: 3rem;
+            }
+        }
+
+        .icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .icon-error {
+            background-color: hsla(0, 72%, 55%, 0.1);
+            color: var(--destructive);
+        }
+
+        .icon-error i {
+            width: 2.25rem;
+            height: 2.25rem;
+        }
+
+        .message-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--card-foreground);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        @media(min-width: 640px) {
+            .message-title {
+                font-size: 1.875rem;
+            }
+        }
+
+        .message-subtitle {
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+        }
+
+        .action-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="message-container">
+        <header class="app-header">
+            <div class="header-content">
+                <a href="../index.html" class="logo-link">
+                    <img src="../assets/logo-LDF-_2_ (1).png" alt="Livre de Franquia" class="logo-img">
+                </a>
+            </div>
+        </header>
+
+        <main class="message-main">
+            <div class="message-card">
+                <div class="icon-wrapper icon-error">
+                    <i data-lucide="x-circle"></i>
+                </div>
+
+                <h1 class="message-title">Ops… não deu certo dessa vez.</h1>
+                <p class="message-subtitle">Não foi possível processar o pagamento no cartão. Verifique os dados ou
+                    tente outro cartão.</p>
+
+                <div class="action-stack">
+                    <button class="btn btn-primary" id="btn-retry">
+                        Tentar novamente
+                    </button>
+                    <button class="btn btn-outline" id="btn-review">
+                        Voltar e revisar dados
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Livre de Franquia. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Attribution + dataLayer -->
+    <script src="../popup/ldf-global.js"></script>
+
+    <script>
+        lucide.createIcons();
+        window.dataLayer = window.dataLayer || [];
+
+        // ============================================================
+        // DATALAYER: payment_failed (página de erro)
+        // ============================================================
+        (function() {
+            var attr = {};
+            if (window.LDFGlobal && typeof window.LDFGlobal.getTrackingData === 'function') {
+                var td = window.LDFGlobal.getTrackingData();
+                attr = {
+                    partner_id: td.partner_id || 'direct',
+                    utm_source: td.utm_source || '',
+                    utm_medium: td.utm_medium || '',
+                    utm_campaign: td.utm_campaign || ''
+                };
+            }
+
+            var planData = {};
+            var saved = localStorage.getItem('ldf-checkout');
+            if (saved) {
+                try {
+                    var state = JSON.parse(saved);
+                    if (state.plan) {
+                        planData = {
+                            plan_id: state.plan.id,
+                            plan_name: state.plan.name,
+                            plan_price: state.plan.price,
+                            plan_total: state.plan.totalPrice
+                        };
+                    }
+                } catch (e) { }
+            }
+
+            window.dataLayer.push(Object.assign({
+                event: 'payment_failed',
+                error_type: 'payment_declined',
+                error_message: 'Pagamento recusado pela operadora',
+                page_path: window.location.pathname,
+                page_url: window.location.href
+            }, attr, planData));
+
+            console.log('%c[LDF dataLayer]', 'color: #3b82f6; font-weight: bold;', 'payment_failed');
+        })();
+
+        document.getElementById('btn-retry').addEventListener('click', () => {
+            let saved = localStorage.getItem('ldf-checkout');
+            if (saved) {
+                try {
+                    let state = JSON.parse(saved);
+                    state.step = 3;
+                    localStorage.setItem('ldf-checkout', JSON.stringify(state));
+                } catch (e) { }
+            }
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('btn-review').addEventListener('click', () => {
+            let saved = localStorage.getItem('ldf-checkout');
+            if (saved) {
+                try {
+                    let state = JSON.parse(saved);
+                    state.step = 1;
+                    localStorage.setItem('ldf-checkout', JSON.stringify(state));
+                } catch (e) { }
+            }
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+
+</html>

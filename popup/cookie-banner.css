@@ -1,0 +1,220 @@
+/* ========================================================================
+   LDF COOKIE BANNER - Estilos
+   ======================================================================== */
+
+/* Banner container */
+.ldf-cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Inter', sans-serif;
+}
+
+.ldf-cookie-banner.visible {
+  transform: translateY(0);
+}
+
+.ldf-cookie-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Texto */
+.ldf-cookie-text {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.ldf-cookie-text a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ldf-cookie-text a:hover {
+  color: #93bbfd;
+}
+
+/* Botões */
+.ldf-cookie-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+.ldf-cookie-btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ldf-cookie-btn-accept {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.ldf-cookie-btn-accept:hover {
+  background: #2563eb;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.ldf-cookie-btn-reject {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ldf-cookie-btn-reject:hover {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ldf-cookie-btn-prefs {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.ldf-cookie-btn-prefs:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Painel de preferências */
+.ldf-cookie-prefs {
+  display: none;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ldf-cookie-prefs.visible {
+  display: block;
+  animation: ldfCookieFade 0.3s ease;
+}
+
+@keyframes ldfCookieFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ldf-cookie-category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0;
+}
+
+.ldf-cookie-category + .ldf-cookie-category {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ldf-cookie-cat-info {
+  flex: 1;
+}
+
+.ldf-cookie-cat-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.125rem;
+}
+
+.ldf-cookie-cat-desc {
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Toggle switch */
+.ldf-cookie-toggle {
+  position: relative;
+  width: 2.5rem;
+  height: 1.375rem;
+  flex-shrink: 0;
+}
+
+.ldf-cookie-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.ldf-cookie-toggle-track {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ldf-cookie-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.ldf-cookie-toggle input:checked + .ldf-cookie-toggle-track {
+  background: #3b82f6;
+}
+
+.ldf-cookie-toggle input:checked + .ldf-cookie-toggle-track::after {
+  transform: translateX(1.125rem);
+}
+
+.ldf-cookie-toggle input:disabled + .ldf-cookie-toggle-track {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ldf-cookie-prefs-save {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ldf-cookie-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .ldf-cookie-actions {
+    flex-direction: column;
+  }
+
+  .ldf-cookie-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.625rem;
+  }
+}

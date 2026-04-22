@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livre de Franquia - Parabéns</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .message-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--background);
+        }
+
+        .message-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+        }
+
+        .message-card {
+            background-color: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            max-width: 32rem;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @media(min-width: 640px) {
+            .message-card {
+                padding: 3rem;
+            }
+        }
+
+        .icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .icon-success {
+            background-color: hsla(150, 60%, 42%, 0.1);
+            color: var(--success);
+        }
+
+        .icon-success i {
+            width: 2.25rem;
+            height: 2.25rem;
+        }
+
+        .message-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--card-foreground);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        @media(min-width: 640px) {
+            .message-title {
+                font-size: 1.875rem;
+            }
+        }
+
+        .message-subtitle {
+            color: var(--muted-foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .proposal-num {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-box {
+            background-color: var(--muted);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: left;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .summary-label {
+            color: var(--muted-foreground);
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--card-foreground);
+        }
+
+        .action-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="message-container">
+        <header class="app-header">
+            <div class="header-content">
+                <a href="../index.html" class="logo-link">
+                    <img src="../assets/logo-LDF-_2_ (1).png" alt="Livre de Franquia" class="logo-img">
+                </a>
+            </div>
+        </header>
+
+        <main class="message-main">
+            <div class="message-card">
+                <div class="icon-wrapper icon-success">
+                    <i data-lucide="check-circle"></i>
+                </div>
+
+                <h1 class="message-title">Parabéns, agora você é Livre de Franquia!</h1>
+                <p class="message-subtitle">Seu certificado foi enviado para seu e-mail.</p>
+                <p class="proposal-num">Proposta número LDF-<span id="lbl-proposal">000000</span> criada.</p>
+
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span class="summary-label">Plano</span>
+                        <span class="summary-value" id="lbl-plan">—</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Valor mensal</span>
+                        <span class="summary-value" id="lbl-price">R$ 0,00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Forma de pagamento</span>
+                        <span class="summary-value" id="lbl-installments">—</span>
+                    </div>
+                </div>
+
+                <div class="action-stack">
+                    <button class="btn btn-primary icon-btn" onclick="alert('Download simulado do certificado PDF')">
+                        <i data-lucide="download" class="btn-icon"></i>
+                        <span>Baixar certificado (PDF)</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="alert('E-mail reenviado com sucesso!')">
+                        Enviar certificado novamente
+                    </button>
+                </div>
+
+                <div class="footer-note">
+                    <i data-lucide="phone" style="width:1rem;height:1rem;"></i>
+                    <span>Caso precise acionar: ligue 0800 XXXX XXX</span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 Livre de Franquia. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Attribution + dataLayer -->
+    <script src="../popup/ldf-global.js"></script>
+
+    <script>
+        lucide.createIcons();
+        window.dataLayer = window.dataLayer || [];
+
+        const saved = localStorage.getItem('ldf-checkout');
+        if (saved) {
+            try {
+                const state = JSON.parse(saved);
+                if (state.plan) {
+                    document.getElementById('lbl-plan').innerText = state.plan.name;
+                    document.getElementById('lbl-price').innerText = `R$ ${state.plan.price.toFixed(2).replace('.', ',')}`;
+
+                    let val = state.plan.price.toFixed(2).replace('.', ',');
+                    let parcelasLabel = `12x de R$ ${val}`;
+
+                    document.getElementById('lbl-installments').innerText = parcelasLabel;
+                }
+
+                let proposta = state.proposalNumber || Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('lbl-proposal').innerText = proposta;
+
+                // ============================================================
+                // DATALAYER: purchase_confirmation (página de obrigado)
+                // ============================================================
+                var attr = {};
+                if (window.LDFGlobal && typeof window.LDFGlobal.getTrackingData === 'function') {
+                    var td = window.LDFGlobal.getTrackingData();
+                    attr = {
+                        partner_id: td.partner_id || 'direct',
+                        utm_source: td.utm_source || '',
+                        utm_medium: td.utm_medium || '',
+                        utm_campaign: td.utm_campaign || ''
+                    };
+                }
+
+                window.dataLayer.push(Object.assign({
+                    event: 'purchase_confirmation',
+                    transaction_id: proposta,
+                    plan_id: state.plan ? state.plan.id : '',
+                    plan_name: state.plan ? state.plan.name : '',
+                    value: state.plan ? state.plan.totalPrice : 0,
+                    price_monthly: state.plan ? state.plan.price : 0,
+                    currency: 'BRL',
+                    payment_method: 'credit_card',
+                    installments: state.payment ? state.payment.parcelas || '12' : '12',
+                    page_path: window.location.pathname,
+                    page_url: window.location.href
+                }, attr));
+
+                console.log('%c[LDF dataLayer]', 'color: #3b82f6; font-weight: bold;', 'purchase_confirmation');
+
+            } catch (e) { }
+        }
+    </script>
+</body>
+
+</html>

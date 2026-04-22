@@ -456,7 +456,7 @@
                                 Sorteios mensais
                             </li>
                         </ul>
-                        <a href="https://wa.me/5511947164230?text=Olá! Tenho interesse no plano Essencial do Livre de Franquia" target="_blank" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
+                        <a href="checkout/index.html?plano=essencial" class="ldf-checkout-link block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
                             Contratar
                         </a>
                     </div>
@@ -485,7 +485,7 @@
                                 Sorteios mensais
                             </li>
                         </ul>
-                        <a href="https://wa.me/5511947164230?text=Olá! Tenho interesse no plano Conforto do Livre de Franquia" target="_blank" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
+                        <a href="checkout/index.html?plano=conforto" class="ldf-checkout-link block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
                             Contratar
                         </a>
                     </div>
@@ -517,7 +517,7 @@
                                 Sorteios mensais
                             </li>
                         </ul>
-                        <a href="https://wa.me/5511947164230?text=Olá! Tenho interesse no plano Premium do Livre de Franquia" target="_blank" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-xl font-semibold transition text-sm shadow-lg shadow-primary-600/30">
+                        <a href="checkout/index.html?plano=premium" class="ldf-checkout-link block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-xl font-semibold transition text-sm shadow-lg shadow-primary-600/30">
                             Contratar
                         </a>
                     </div>
@@ -546,7 +546,7 @@
                                 Sorteios mensais
                             </li>
                         </ul>
-                        <a href="https://wa.me/5511947164230?text=Olá! Tenho interesse no plano Exclusivo do Livre de Franquia" target="_blank" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
+                        <a href="checkout/index.html?plano=exclusivo" class="ldf-checkout-link block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-xl font-semibold transition text-sm">
                             Contratar
                         </a>
                     </div>
@@ -901,6 +901,45 @@
                 header.classList.remove('shadow-md');
             }
         });
+
+        // ============================================================
+        // UTM FORWARDING - Preserva UTMs nos links de checkout
+        // ============================================================
+        (function() {
+            const currentParams = new URLSearchParams(window.location.search);
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'partner_id', 'pid'];
+            const utmParams = new URLSearchParams();
+            
+            utmKeys.forEach(key => {
+                const val = currentParams.get(key);
+                if (val) utmParams.set(key, val);
+            });
+            
+            if (utmParams.toString()) {
+                document.querySelectorAll('a.ldf-checkout-link').forEach(link => {
+                    const url = new URL(link.href, window.location.origin);
+                    utmParams.forEach((val, key) => {
+                        url.searchParams.set(key, val);
+                    });
+                    link.href = url.toString();
+                });
+            }
+        })();
     </script>
+
+    <!-- Exit Popup - Captura de Leads -->
+    <script>
+    window.LDF_POPUP_CONFIG = {
+      webhookUrl: 'https://n8n.grupofbn.com.br/webhook/popupldf',
+      ga4Id: 'G-B8GQREK0F3',
+      metaPixelId: '2079410829306095'
+    };
+    </script>
+    <link rel="stylesheet" href="popup/popup.css">
+    <link rel="stylesheet" href="popup/cookie-banner.css">
+    <script src="popup/ldf-global.js"></script>
+    <script src="popup/cookie-banner.js"></script>
+    <script src="popup/tracking.js"></script>
+    <script src="popup/popup.js"></script>
 </body>
 </html>
