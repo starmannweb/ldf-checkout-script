@@ -460,20 +460,28 @@
     var url = POPUP_CONFIG.webhookUrl;
 
     if (!url) {
-      console.warn('[LDF Popup] Webhook não configurado. Simulando...');
-      return new Promise(function (resolve) {
-        setTimeout(function () { resolve({ success: true }); }, 1000);
-      });
+      return Promise.reject(new Error('Webhook não configurado'));
     }
 
     return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    }).then(function (res) {
-      return res.ok ? { success: true } : { success: false, error: 'HTTP ' + res.status };
-    }).catch(function (err) {
-      return { success: false, error: err.message };
+    })
+    .then(async function (res) {
+      var json = {};
+      try {
+        json = await res.json();
+      } catch (e) {}
+
+      if (!res.ok) {
+        throw new Error(json.message || ('HTTP ' + res.status));
+      }
+
+      return {
+        success: true,
+        data: json
+      };
     });
   }
 
