@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDF Popup Tracker v2.0 — Homologação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:300vh}
+        .hdr{background:linear-gradient(135deg,#1e3a8a,#2346b5);padding:48px 24px 32px;text-align:center;position:sticky;top:0;z-index:100}
+        .hdr h1{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:6px}
+        .hdr p{color:rgba(255,255,255,.7);font-size:.85rem}
+        .wrap{max-width:820px;margin:0 auto;padding:32px 20px}
+        .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;margin-bottom:20px}
+        .card h2{font-size:1rem;font-weight:700;color:#f7b500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+        .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:inherit;margin:3px}
+        .btn-y{background:#f7b500;color:#0f172a}.btn-y:hover{background:#d9a000}
+        .btn-b{background:#2346b5;color:#fff}.btn-b:hover{background:#1a3490}
+        .btn-r{background:#dc2626;color:#fff}.btn-r:hover{background:#991b1b}
+        .btn-o{background:transparent;color:#94a3b8;border:1px solid #475569}.btn-o:hover{background:#334155;color:#e2e8f0}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:12px}
+        .gi{background:#0f172a;border-radius:8px;padding:10px 12px}
+        .gi .l{font-size:.65rem;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+        .gi .v{font-size:.8rem;font-weight:600;color:#f7b500;word-break:break-all}
+        .log{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:14px;margin-top:14px;max-height:320px;overflow-y:auto;font-family:'Fira Code',Consolas,monospace;font-size:.7rem;line-height:1.9}
+        .le{padding:3px 0;border-bottom:1px solid rgba(51,65,85,.3)}
+        .le .ev{color:#60a5fa;font-weight:600}
+        .le .dt{color:#94a3b8}
+        .le .tm{color:#475569;font-size:.65rem;margin-right:6px}
+        .sm{text-align:center;padding:50px 24px;color:#475569;font-size:.85rem}
+        code{color:#60a5fa;background:#1e293b;padding:2px 6px;border-radius:4px;font-size:.8rem}
+        .test-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+        #attr-out,#consent-out{margin-top:10px;font-size:.8rem;color:#94a3b8}
+        pre{color:#94a3b8;font-size:.72rem;white-space:pre-wrap;overflow-x:auto}
+    </style>
+</head>
+<body>
+
+<div class="hdr">
+    <h1>🧪 LDF Popup Tracker v2.0 — Homologação</h1>
+    <p>Testes dos 7 eventos oficiais, atribuição e consentimento</p>
+</div>
+
+<div class="wrap">
+
+    <!-- Status -->
+    <div class="card">
+        <h2>📊 Status do Sistema</h2>
+        <div class="grid" id="sys-status"></div>
+    </div>
+
+    <!-- Popup -->
+    <div class="card">
+        <h2>🪟 Popup</h2>
+        <div class="test-row">
+            <button class="btn btn-y" onclick="LDFTracker.forceOpenPopup()">⚡ Forçar Popup</button>
+            <button class="btn btn-o" onclick="LDFTracker.closePopup('manual')">✕ Fechar</button>
+        </div>
+        <p style="margin-top:10px;font-size:.75rem;color:#64748b">
+            Desktop: mova o mouse para fora da viewport (topo) → exit intent real.<br>
+            Mobile: aguarde idle timeout ou volte à aba.
+        </p>
+    </div>
+
+    <!-- Cookies -->
+    <div class="card">
+        <h2>🍪 Consentimento</h2>
+        <div class="test-row">
+            <button class="btn btn-b" onclick="resetAll()">🔄 Resetar Tudo (recarrega)</button>
+            <button class="btn btn-o" onclick="showConsent()">📋 Status</button>
+        </div>
+        <div id="consent-out"></div>
+    </div>
+
+    <!-- Atribuição -->
+    <div class="card">
+        <h2>🔗 Atribuição</h2>
+        <p style="font-size:.75rem;color:#94a3b8;margin-bottom:10px">
+            Teste: <code>?partner_id=abla&utm_source=abla&utm_medium=parceria&utm_campaign=teste&utm_content=popup&utm_term=franquia</code>
+        </p>
+        <div class="test-row">
+            <button class="btn btn-b" onclick="showAttr()">📋 Ver Atribuição</button>
+            <button class="btn btn-b" onclick="showBase()">📋 getBaseEventData()</button>
+            <button class="btn btn-o" onclick="clearAttr()">🗑️ Limpar</button>
+        </div>
+        <div id="attr-out"></div>
+    </div>
+
+    <!-- Testes -->
+    <div class="card">
+        <h2>🧪 Testes Rápidos</h2>
+        <p style="font-size:.75rem;color:#94a3b8;margin-bottom:10px">Dispare eventos individuais para validar o schema.</p>
+        <div class="test-row">
+            <button class="btn btn-b" onclick="testPopupView()">popup_view</button>
+            <button class="btn btn-b" onclick="testPopupClose()">popup_close</button>
+            <button class="btn btn-b" onclick="testPopupSubmit()">popup_submit</button>
+            <button class="btn btn-r" onclick="testPopupError()">popup_error</button>
+            <button class="btn btn-y" onclick="testLeadSaved()">lead_saved</button>
+        </div>
+    </div>
+
+    <!-- Log -->
+    <div class="card">
+        <h2>📝 Log de Eventos (dataLayer)</h2>
+        <div class="test-row">
+            <button class="btn btn-r" onclick="clearLog()">🗑️ Limpar</button>
+            <button class="btn btn-o" onclick="dumpDL()">📋 Dump Completo</button>
+        </div>
+        <div class="log" id="elog">
+            <div class="le"><span class="tm">Aguardando eventos...</span></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Scroll markers -->
+<div class="sm">↓ Scroll 25% ↓</div>
+<div class="sm">↓ Scroll 50% ↓</div>
+<div class="sm">↓ Scroll 75% ↓</div>
+<div class="sm">↓ Scroll 100% ↓</div>
+
+<!-- ============================================================
+     INSTALAÇÃO (exemplo real)
+     ============================================================ -->
+
+<!-- PASSO 1: Config ANTES do script -->
+<script>
+window.LDF_POPUP_CONFIG = {
+    // ga4_id: 'G-XXXXXXXXXX',
+    // meta_pixel_id: '1234567890',
+    // webhook_url: 'https://seu-n8n/webhook/ldf-leads',
+
+    min_time_on_page_desktop: 5000,
+    min_time_on_page_mobile: 8000,
+    min_scroll_percent_mobile: 30,
+    hide_after_close_hours: 0.01,        // ~36s para teste
+    hide_after_submit_days: 0.001,       // ~86s para teste
+
+    allowed_paths: ['*'],
+    blocked_paths: ['/obrigado', '/sucesso']
+};
+</script>
+
+<!-- PASSO 2: CSS + JS -->
+<link rel="stylesheet" href="ldf-popup-tracker.css">
+<script src="ldf-popup-tracker.js" defer></script>
+
+<!-- PASSO 3: Scripts de homologação -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        updateStatus();
+        showConsent();
+        hookDataLayer();
+    }, 600);
+});
+
+// Intercepta dataLayer
+function hookDataLayer() {
+    window.dataLayer = window.dataLayer || [];
+    var orig = window.dataLayer.push.bind(window.dataLayer);
+    window.dataLayer.push = function() {
+        var r = orig.apply(window.dataLayer, arguments);
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments[i] && arguments[i].event) logEvent(arguments[i].event, arguments[i]);
+        }
+        return r;
+    };
+}
+
+function logEvent(name, data) {
+    var el = document.getElementById('elog');
+    var t = new Date().toLocaleTimeString('pt-BR');
+    var d = JSON.stringify(data, null, 0);
+    if (d.length > 220) d = d.substring(0, 220) + '…';
+    var row = document.createElement('div');
+    row.className = 'le';
+    row.innerHTML = '<span class="tm">' + t + '</span> <span class="ev">' + name + '</span> <span class="dt">' + d + '</span>';
+    el.insertBefore(row, el.firstChild);
+}
+
+function clearLog() { document.getElementById('elog').innerHTML = '<div class="le"><span class="tm">Log limpo.</span></div>'; }
+
+function dumpDL() {
+    document.getElementById('elog').innerHTML = '';
+    (window.dataLayer || []).forEach(function(e, i) {
+        if (e && e.event) logEvent('#' + i + ' ' + e.event, e);
+    });
+}
+
+function updateStatus() {
+    var c = document.getElementById('sys-status');
+    if (!window.LDFTracker) { c.innerHTML = '<p>Tracker não carregado.</p>'; return; }
+    var a = LDFTracker.getAttributionData();
+    var cfg = LDFTracker.config;
+    var items = [
+        ['Partner ID', a.partner_id],
+        ['Session', LDFTracker.getSessionId().substring(0, 14) + '…'],
+        ['utm_source', a.utm_source],
+        ['utm_medium', a.utm_medium],
+        ['utm_campaign', a.utm_campaign],
+        ['GA4', cfg.ga4_id || '(off)'],
+        ['Meta', cfg.meta_pixel_id || '(off)'],
+        ['Webhook', cfg.webhook_url ? '✅' : '(simulação)'],
+        ['Consent', LDFTracker.isConsentAccepted() ? '✅ Aceito' : LDFTracker.isConsentRejected() ? '❌ Recusado' : '⏳ Pendente']
+    ];
+    c.innerHTML = items.map(function(i) { return '<div class="gi"><div class="l">' + i[0] + '</div><div class="v">' + i[1] + '</div></div>'; }).join('');
+}
+
+function showConsent() {
+    var el = document.getElementById('consent-out');
+    if (!window.LDFTracker) { el.textContent = 'Aguardando...'; return; }
+    if (LDFTracker.isConsentAccepted()) el.innerHTML = '✅ <strong>Aceito</strong> — GA4 + Meta ativos';
+    else if (LDFTracker.isConsentRejected()) el.innerHTML = '❌ <strong>Recusado</strong> — Apenas essenciais';
+    else el.innerHTML = '⏳ <strong>Pendente</strong> — Banner visível';
+}
+
+function resetAll() {
+    var cfg = window.LDF_POPUP_CONFIG || {};
+    localStorage.removeItem(cfg.cookie_storage_key || 'ldf_cookie_consent');
+    localStorage.removeItem(cfg.popup_closed_storage_key || 'ldf_popup_closed_at');
+    localStorage.removeItem(cfg.popup_submitted_storage_key || 'ldf_popup_submitted_at');
+    localStorage.removeItem(cfg.attribution_storage_key || 'ldf_attribution');
+    sessionStorage.removeItem(cfg.session_storage_key || 'ldf_session_id');
+    location.reload();
+}
+
+function showAttr() {
+    document.getElementById('attr-out').innerHTML = '<pre>' + JSON.stringify(LDFTracker.getAttributionData(), null, 2) + '</pre>';
+}
+
+function showBase() {
+    document.getElementById('attr-out').innerHTML = '<pre>' + JSON.stringify(LDFTracker.getBaseEventData(), null, 2) + '</pre>';
+}
+
+function clearAttr() {
+    localStorage.removeItem((window.LDF_POPUP_CONFIG || {}).attribution_storage_key || 'ldf_attribution');
+    sessionStorage.removeItem((window.LDF_POPUP_CONFIG || {}).session_storage_key || 'ldf_session_id');
+    location.reload();
+}
+
+// Testes rápidos
+function testPopupView() { LDFTracker.pushEvent('popup_view', {}); }
+function testPopupClose() { LDFTracker.pushEvent('popup_close', { close_type: 'manual' }); }
+function testPopupSubmit() { LDFTracker.pushEvent('popup_submit', {}); }
+function testPopupError() { LDFTracker.pushEvent('popup_error', { error_type: 'submit_failed', error_message: 'Simulação de erro' }); }
+function testLeadSaved() { LDFTracker.pushEvent('lead_saved', { destination: 'webhook' }); }
+</script>
+
+</body>
+</html>

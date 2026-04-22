@@ -51,7 +51,7 @@
   // ============================================================
   var STORAGE = {
     submitted: 'ldf_popup_submitted',
-    checkoutShown: 'ldf_popup_checkout_shown'  // sessionStorage
+    sessionShown: 'ldf_popup_session_shown'  // sessionStorage
   };
 
   // ============================================================
@@ -115,8 +115,8 @@
     return daysSince < POPUP_CONFIG.hideAfterSubmitDays;
   }
 
-  function wasCheckoutShownThisSession() {
-    return sessionStorage.getItem(STORAGE.checkoutShown) === 'true';
+  function wasShownThisSession() {
+    return sessionStorage.getItem(STORAGE.sessionShown) === 'true';
   }
 
   /**
@@ -127,8 +127,8 @@
     if (hasAlreadySubmitted()) return false;
     if (isBlockedPath()) return false;
 
-    // Checkout: 1x por sessão
-    if (isCheckoutPage() && wasCheckoutShownThisSession()) return false;
+    // 1x por sessão (global para landing page e checkout)
+    if (wasShownThisSession()) return false;
 
     // Tempo e scroll mínimos
     var minTime = state.isMobile ? POPUP_CONFIG.mobileMinTime : POPUP_CONFIG.desktopMinTime;
@@ -274,10 +274,8 @@
     state.triggered = true;
     document.body.style.overflow = 'hidden';
 
-    // Se checkout, marca na sessão
-    if (isCheckoutPage()) {
-      sessionStorage.setItem(STORAGE.checkoutShown, 'true');
-    }
+    // Marca na sessão globalmente
+    sessionStorage.setItem(STORAGE.sessionShown, 'true');
 
     // Focus
     setTimeout(function () {

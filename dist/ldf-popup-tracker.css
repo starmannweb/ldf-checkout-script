@@ -1,0 +1,514 @@
+/* ========================================================================
+   LDF POPUP TRACKER — CSS AUTÔNOMO (v1.0)
+   
+   Componentes:
+   - Cookie Banner (.ldf-cookie-*)
+   - Exit Popup (.ldf-popup-*)
+   
+   Todas as classes prefixadas com "ldf-" para evitar conflito.
+   z-index configurável via variável CSS.
+   ======================================================================== */
+
+/* ============================================================
+   VARIÁVEIS CSS
+   ============================================================ */
+:root {
+  --ldf-primary: #2346b5;
+  --ldf-primary-dark: #1a3490;
+  --ldf-accent: #f7b500;
+  --ldf-accent-dark: #d9a000;
+  --ldf-success: #16a34a;
+  --ldf-danger: #dc2626;
+  --ldf-danger-dark: #991b1b;
+  --ldf-text: #1e293b;
+  --ldf-text-muted: #64748b;
+  --ldf-bg-dark: #0f172a;
+  --ldf-bg-card: #ffffff;
+  --ldf-border: #e2e8f0;
+  --ldf-radius: 16px;
+  --ldf-radius-sm: 12px;
+  --ldf-radius-xs: 8px;
+  --ldf-font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ldf-z-popup: 999999;
+  --ldf-z-cookie: 999998;
+  --ldf-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   COOKIE BANNER
+   ============================================================ */
+.ldf-cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--ldf-z-cookie);
+  background: var(--ldf-bg-dark);
+  color: #cbd5e1;
+  padding: 0;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  font-family: var(--ldf-font);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ldf-cookie-banner.ldf-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.ldf-cookie-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ldf-cookie-text {
+  flex: 1;
+  min-width: 280px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.ldf-cookie-text a {
+  color: var(--ldf-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ldf-cookie-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ldf-cookie-btn {
+  padding: 10px 20px;
+  border-radius: var(--ldf-radius-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--ldf-transition);
+  font-family: var(--ldf-font);
+  white-space: nowrap;
+}
+
+.ldf-cookie-btn-accept {
+  background: var(--ldf-accent);
+  color: var(--ldf-bg-dark);
+}
+
+.ldf-cookie-btn-accept:hover {
+  background: var(--ldf-accent-dark);
+  transform: translateY(-1px);
+}
+
+.ldf-cookie-btn-reject {
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ldf-cookie-btn-reject:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+}
+
+@media (max-width: 640px) {
+  .ldf-cookie-inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 16px 20px;
+  }
+
+  .ldf-cookie-text {
+    min-width: unset;
+    font-size: 0.8125rem;
+  }
+
+  .ldf-cookie-actions {
+    flex-direction: column;
+  }
+
+  .ldf-cookie-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   POPUP OVERLAY
+   ============================================================ */
+.ldf-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ldf-z-popup);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  visibility: hidden;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, opacity 0.4s ease, visibility 0s 0.4s;
+  font-family: var(--ldf-font);
+  padding: 16px;
+}
+
+.ldf-popup-overlay.ldf-active {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  opacity: 1;
+  visibility: visible;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, opacity 0.4s ease, visibility 0s 0s;
+}
+
+/* ============================================================
+   POPUP CONTAINER
+   ============================================================ */
+.ldf-popup-container {
+  background: var(--ldf-bg-card);
+  border-radius: 24px;
+  max-width: 440px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transform: scale(0.9) translateY(30px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.ldf-popup-overlay.ldf-active .ldf-popup-container {
+  transform: scale(1) translateY(0);
+}
+
+/* ============================================================
+   POPUP HEADER
+   ============================================================ */
+.ldf-popup-header {
+  background: linear-gradient(135deg, var(--ldf-primary) 0%, var(--ldf-primary-dark) 100%);
+  padding: 28px 28px 24px;
+  position: relative;
+  color: #ffffff;
+}
+
+.ldf-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all var(--ldf-transition);
+  line-height: 1;
+}
+
+.ldf-popup-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.ldf-popup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ldf-accent);
+  margin-bottom: 16px;
+}
+
+.ldf-popup-headline {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.ldf-popup-headline span {
+  color: var(--ldf-accent);
+}
+
+.ldf-popup-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   POPUP BODY (FORM)
+   ============================================================ */
+.ldf-popup-body {
+  padding: 24px 28px 20px;
+}
+
+.ldf-popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ldf-popup-field {
+  position: relative;
+}
+
+.ldf-popup-input-row {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--ldf-border);
+  border-radius: var(--ldf-radius-sm);
+  overflow: hidden;
+  transition: border-color var(--ldf-transition), box-shadow var(--ldf-transition);
+  background: #f8fafc;
+}
+
+.ldf-popup-input-row:focus-within {
+  border-color: var(--ldf-primary);
+  box-shadow: 0 0 0 3px rgba(35, 70, 181, 0.1);
+  background: #ffffff;
+}
+
+.ldf-popup-input-row.ldf-has-error {
+  border-color: var(--ldf-danger);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+  background: #fef2f2;
+}
+
+.ldf-popup-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  flex-shrink: 0;
+  color: var(--ldf-text-muted);
+  font-size: 15px;
+}
+
+.ldf-popup-input-row.ldf-has-error .ldf-popup-icon {
+  color: var(--ldf-danger);
+}
+
+.ldf-popup-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 14px 14px 0;
+  font-size: 0.95rem;
+  font-family: var(--ldf-font);
+  color: var(--ldf-text);
+  background: transparent;
+}
+
+.ldf-popup-input::placeholder {
+  color: #94a3b8;
+}
+
+.ldf-popup-error-msg {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ldf-danger);
+  margin-top: 6px;
+  padding-left: 4px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.2s ease, max-height 0.2s ease, margin 0.2s ease;
+}
+
+.ldf-popup-error-msg.ldf-visible {
+  opacity: 1;
+  max-height: 30px;
+}
+
+/* ============================================================
+   CTA BUTTON
+   ============================================================ */
+.ldf-popup-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--ldf-primary) 0%, var(--ldf-primary-dark) 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--ldf-radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--ldf-transition);
+  font-family: var(--ldf-font);
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.ldf-popup-cta:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(35, 70, 181, 0.35);
+}
+
+.ldf-popup-cta:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ldf-popup-cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading state */
+.ldf-popup-cta.ldf-loading .ldf-cta-icon,
+.ldf-popup-cta.ldf-loading .ldf-cta-text {
+  visibility: hidden;
+}
+
+.ldf-popup-cta.ldf-loading .ldf-spinner {
+  display: block;
+}
+
+.ldf-spinner {
+  display: none;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: ldf-spin 0.7s linear infinite;
+}
+
+@keyframes ldf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   TRUST LINE
+   ============================================================ */
+.ldf-popup-trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0 0;
+  font-size: 0.75rem;
+  color: var(--ldf-text-muted);
+  justify-content: center;
+}
+
+.ldf-popup-trust i {
+  color: var(--ldf-success);
+  font-size: 12px;
+}
+
+/* ============================================================
+   SUCCESS STATE
+   ============================================================ */
+.ldf-popup-success {
+  display: none;
+  text-align: center;
+  padding: 48px 28px;
+}
+
+.ldf-popup-success.ldf-visible {
+  display: block;
+  animation: ldf-fadeIn 0.4s ease;
+}
+
+.ldf-popup-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ldf-success), #059669);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: #ffffff;
+  font-size: 28px;
+  animation: ldf-scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ldf-popup-success-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ldf-text);
+  margin: 0 0 8px;
+}
+
+.ldf-popup-success-text {
+  font-size: 0.9rem;
+  color: var(--ldf-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@keyframes ldf-fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ldf-scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .ldf-popup-overlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .ldf-popup-container {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+  }
+
+  .ldf-popup-header {
+    padding: 24px 20px 20px;
+  }
+
+  .ldf-popup-headline {
+    font-size: 1.2rem;
+  }
+
+  .ldf-popup-body {
+    padding: 20px 20px 16px;
+  }
+
+  .ldf-popup-cta {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+
+  .ldf-popup-success {
+    padding: 36px 20px;
+  }
+}
