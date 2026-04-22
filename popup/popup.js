@@ -415,8 +415,8 @@
       utm_term: document.getElementById('ldf-h-utm_term').value,
       session_id: document.getElementById('ldf-h-session_id').value,
       timestamp: new Date().toISOString(),
-      source: POPUP_CONFIG.popupName,
-      form: POPUP_CONFIG.formName,
+      popup_name: POPUP_CONFIG.popupName,
+      form_name: POPUP_CONFIG.formName,
       first_touch_timestamp: localStorage.getItem('ldf_first_touch_timestamp') || '',
       user_agent: navigator.userAgent
     };
