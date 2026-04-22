@@ -32,24 +32,36 @@
   // ESTADO
   // ============================================================
 
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length,c.length));
+    }
+    return null;
+  }
+
   /**
    * Lê o consentimento salvo
    * @returns {Object|null} { analytics: bool, marketing: bool, savedAt: timestamp }
    */
   function getSavedConsent() {
-    var saved = localStorage.getItem(COOKIE_CONFIG.storageKey);
+    var saved = getCookie(COOKIE_CONFIG.storageKey);
     if (!saved) return null;
     try {
-      var parsed = JSON.parse(saved);
-      // Verifica expiração
-      if (parsed.savedAt) {
-        var daysSince = (Date.now() - parsed.savedAt) / (1000 * 60 * 60 * 24);
-        if (daysSince > COOKIE_CONFIG.expirationDays) {
-          localStorage.removeItem(COOKIE_CONFIG.storageKey);
-          return null;
-        }
-      }
-      return parsed;
+      return JSON.parse(saved);
     } catch (e) {
       return null;
     }
@@ -65,7 +77,7 @@
       marketing: !!marketing,
       savedAt: Date.now()
     };
-    localStorage.setItem(COOKIE_CONFIG.storageKey, JSON.stringify(data));
+    setCookie(COOKIE_CONFIG.storageKey, JSON.stringify(data), COOKIE_CONFIG.expirationDays);
     return data;
   }
 
@@ -98,7 +110,7 @@
     + '    <div class="ldf-cookie-text">'
     + '      <p>Usamos cookies para melhorar sua experiência, personalizar conteúdo e analisar nosso tráfego. '
     + '      Ao clicar em "Aceitar", você concorda com o uso de cookies analíticos e de marketing. '
-    + '      <a href="#" id="ldf-cookie-policy-link">Política de Privacidade</a></p>'
+    + '      <a href="/politica-de-privacidade.html" id="ldf-cookie-policy-link">Política de Privacidade</a></p>'
     + '    </div>'
     + '    <div class="ldf-cookie-actions">'
     + '      <button class="ldf-cookie-btn ldf-cookie-btn-accept" id="ldf-cookie-accept">Aceitar</button>'
@@ -327,7 +339,7 @@
     isAnalyticsAllowed: isAnalyticsAllowed,
     getSavedConsent: getSavedConsent,
     resetConsent: function () {
-      localStorage.removeItem(COOKIE_CONFIG.storageKey);
+      setCookie(COOKIE_CONFIG.storageKey, '', -1);
       location.reload();
     }
   };

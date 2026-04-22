@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | Livre de Franquia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a' },
+                        accent: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tracking config -->
+    <script>
+    window.LDF_POPUP_CONFIG = {
+      webhookUrl: 'https://n8n.grupofbn.com.br/webhook/popupldf',
+      ga4Id: 'G-B8GQREK0F3',
+      metaPixelId: '2079410829306095'
+    };
+    </script>
+    <link rel="stylesheet" href="popup/popup.css">
+    <link rel="stylesheet" href="popup/cookie-banner.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Header Simples -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+        <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo-LDF-_2_ (1) (1).png" alt="Livre de Franquia Logo" class="h-10">
+            </a>
+            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-primary-600 transition">
+                <i class="fas fa-arrow-left mr-1"></i> Voltar ao site
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 lg:px-8 py-12 max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Política de Privacidade</h1>
+            <p class="text-slate-500 mb-8 pb-8 border-b border-slate-100">Última atualização: <span id="current-date">Abril de 2026</span></p>
+
+            <div class="prose prose-slate max-w-none space-y-6">
+                
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">1. Introdução</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Bem-vindo ao <strong>Livre de Franquia</strong>, uma solução do <strong>Grupo FBN</strong>. Nós valorizamos sua privacidade e estamos comprometidos em proteger seus dados pessoais. Esta Política de Privacidade explica como coletamos, usamos, divulgamos e protegemos suas informações quando você visita nosso site e utiliza nossos serviços, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">2. Dados que Coletamos</h2>
+                    <p class="text-slate-600 leading-relaxed mb-2">Podemos coletar as seguintes informações sobre você:</p>
+                    <ul class="list-disc pl-5 text-slate-600 space-y-2">
+                        <li><strong>Dados de Contato:</strong> Nome, endereço de e-mail e número de WhatsApp, fornecidos voluntariamente por você ao preencher nossos formulários ou pop-ups.</li>
+                        <li><strong>Dados de Navegação e Uso:</strong> Informações sobre como você interage com nosso site, endereço IP, tipo de navegador, páginas visitadas e tempo de permanência, coletados automaticamente via cookies.</li>
+                        <li><strong>Dados de Atribuição:</strong> Parâmetros de campanhas (UTMs) para entender qual campanha de marketing levou você até nosso site.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">3. Como Usamos Seus Dados</h2>
+                    <p class="text-slate-600 leading-relaxed mb-2">As informações coletadas são utilizadas para:</p>
+                    <ul class="list-disc pl-5 text-slate-600 space-y-2">
+                        <li>Fornecer a você propostas exclusivas e informações sobre o <em>Livre de Franquia</em>.</li>
+                        <li>Permitir que nossos consultores entrem em contato via WhatsApp ou E-mail para apresentar planos e tirar dúvidas.</li>
+                        <li>Melhorar nosso site, personalizar sua experiência e otimizar nossas campanhas de marketing.</li>
+                        <li>Processar pagamentos e assinaturas caso você prossiga para a etapa de checkout.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">4. Cookies e Ferramentas de Rastreamento</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Utilizamos cookies e tecnologias semelhantes para garantir o funcionamento do site, analisar o tráfego (Google Analytics 4) e personalizar anúncios (Meta Pixel). Você pode gerenciar suas preferências de cookies a qualquer momento através do nosso banner de consentimento, que pode ser reaberto clicando <a href="#" id="open-cookie-prefs" class="text-primary-600 hover:underline font-medium">aqui</a>.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">5. Compartilhamento de Dados</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Seus dados não são vendidos ou alugados para terceiros. O compartilhamento ocorre exclusivamente com:
+                    </p>
+                    <ul class="list-disc pl-5 text-slate-600 space-y-2 mt-2">
+                        <li><strong>Grupo FBN:</strong> Empresa controladora do <em>Livre de Franquia</em>, responsável pelo atendimento ao cliente.</li>
+                        <li><strong>Provedores de Serviço:</strong> Ferramentas de automação (como o n8n) e gateways de pagamento utilizados estritamente para viabilizar nossa operação.</li>
+                        <li><strong>Autoridades Legais:</strong> Quando exigido por lei ou para responder a processos legais.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">6. Seus Direitos (LGPD)</h2>
+                    <p class="text-slate-600 leading-relaxed mb-2">Você tem o direito de:</p>
+                    <ul class="list-disc pl-5 text-slate-600 space-y-2">
+                        <li>Confirmar a existência de tratamento de dados e acessar seus dados.</li>
+                        <li>Solicitar a correção de dados incompletos, inexatos ou desatualizados.</li>
+                        <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos.</li>
+                        <li>Revogar seu consentimento a qualquer momento.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-800 mb-3">7. Contato</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Para exercer seus direitos ou tirar dúvidas sobre esta Política de Privacidade, entre em contato conosco através do e-mail: <a href="mailto:ldf@grupofbn.com.br" class="text-primary-600 hover:underline">ldf@grupofbn.com.br</a>.
+                    </p>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-slate-800">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm text-slate-400 mb-2">&copy; 2026 Livre de Franquia. Todos os direitos reservados.</p>
+            <p class="text-xs text-slate-500">Desenvolvido pelo <a href="https://grupofbn.com.br" target="_blank" class="hover:text-primary-400">Grupo FBN</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts do Popup e Cookies -->
+    <script src="popup/ldf-global.js"></script>
+    <script src="popup/cookie-banner.js"></script>
+    <script src="popup/tracking.js"></script>
+    <script src="popup/popup.js"></script>
+
+    <script>
+        // Formata data
+        const dateSpan = document.getElementById('current-date');
+        const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const d = new Date();
+        dateSpan.innerText = `${months[d.getMonth()]} de ${d.getFullYear()}`;
+
+        // Botão para reabrir preferências
+        document.getElementById('open-cookie-prefs').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.LDFConsent && typeof window.LDFConsent.resetConsent === 'function') {
+                window.LDFConsent.resetConsent();
+            }
+        });
+    </script>
+</body>
+</html>
