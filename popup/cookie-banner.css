@@ -14,7 +14,15 @@
   padding: 1.25rem 1.5rem;
   transform: translateY(100%);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+.ldf-cookie-banner *,
+.ldf-cookie-banner *::before,
+.ldf-cookie-banner *::after {
+  box-sizing: border-box !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
 .ldf-cookie-banner.visible {
@@ -57,15 +65,19 @@
 }
 
 .ldf-cookie-btn {
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.25rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 1.25rem !important;
+  margin: 0 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  line-height: normal !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  box-shadow: none !important;
+  text-transform: none !important;
 }
 
 .ldf-cookie-btn-accept {

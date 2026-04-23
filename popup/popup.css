@@ -19,6 +19,15 @@
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+.ldf-popup-overlay *,
+.ldf-popup-overlay *::before,
+.ldf-popup-overlay *::after {
+  box-sizing: border-box !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
 .ldf-popup-overlay.active {
@@ -178,11 +187,14 @@
   display: flex;
   align-items: center;
   gap: 0;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 0.625rem;
-  background: #f8fafc;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 0.625rem !important;
+  background: #f8fafc !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   overflow: hidden;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Ícone dentro do row - alinhado perfeitamente */
@@ -203,13 +215,17 @@
 .ldf-popup-input {
   flex: 1;
   height: 2.75rem;
-  padding: 0 0.875rem 0 0;
-  border: none;
-  background: transparent;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: #1e293b;
-  outline: none;
+  padding: 0 0.875rem 0 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
+  color: #1e293b !important;
+  outline: none !important;
+  box-shadow: none !important;
   min-width: 0;
 }
 
@@ -219,13 +235,13 @@
 
 /* Focus no row inteiro */
 .ldf-popup-input-row:focus-within {
-  border-color: #3b82f6;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }
 
 .ldf-popup-input-row:focus-within .ldf-popup-icon {
-  color: #3b82f6;
+  color: #3b82f6 !important;
 }
 
 /* Estado de erro - borda vermelha no row, NÃO no input */
