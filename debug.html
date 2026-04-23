@@ -221,11 +221,14 @@
                 <button class="btn btn-primary" onclick="forcePopup()">
                     <i class="fas fa-bolt"></i> Forçar Abertura do Popup
                 </button>
+                <button class="btn" onclick="resetCookies()">
+                    <i class="fas fa-cookie-bite"></i> Resetar/Mostrar Banner de Cookies
+                </button>
                 <button class="btn" onclick="clearStorage()">
-                    <i class="fas fa-trash-alt"></i> Limpar Sessão/Cookies
+                    <i class="fas fa-trash-alt"></i> Limpar Tudo (Storage + Cookies)
                 </button>
                 <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">
-                    <i class="fas fa-info-circle"></i> O popup está configurado para aparecer apenas 1x por sessão. Se não abrir, limpe a sessão.
+                    <i class="fas fa-info-circle"></i> O popup e o banner de cookies respeitam a sessão. Use os botões acima para forçar o reaparecimento durante os testes.
                 </div>
             </div>
 
@@ -408,10 +411,26 @@
             }
         }
 
+        function resetCookies() {
+            if(window.LDFConsent && window.LDFConsent.resetConsent) {
+                window.LDFConsent.resetConsent();
+            } else {
+                // Fallback manual se o objeto não estiver pronto
+                document.cookie = "ldf_cookie_consent=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                location.reload();
+            }
+        }
+
         function clearStorage() {
             localStorage.clear();
             sessionStorage.clear();
-            renderLog('SYSTEM_RESET', { action: "Storage limpo. Atualize a página para testar do zero." });
+            if(window.LDFConsent && window.LDFConsent.resetConsent) {
+                // O resetConsent já faz reload
+                window.LDFConsent.resetConsent();
+            } else {
+                renderLog('SYSTEM_RESET', { action: "Storage limpo. Atualize a página para testar do zero." });
+                location.reload();
+            }
         }
     </script>
 </body>
