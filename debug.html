@@ -201,10 +201,11 @@
             <div class="panel">
                 <div class="panel-title"><i class="fas fa-satellite-dish text-accent-blue"></i> Status do Tracking</div>
                 <div class="badges" id="ui-consent">
+                    <span class="badge" id="b-gtm">GTM Inativo</span>
                     <span class="badge" id="b-ga4">GA4 Carregando...</span>
                     <span class="badge" id="b-meta">Meta Carregando...</span>
                 </div>
-                <div class="status-grid" style="margin-top:0.5rem;">
+                <div class="status-grid" style="margin-top:0.5rem; word-wrap: break-word;">
                     <div class="status-item">
                         <div class="status-label">Partner ID</div>
                         <div class="status-value" id="ui-partner">--</div>
@@ -254,12 +255,12 @@
         <div class="panel" style="margin-bottom: 2rem;">
             <div class="panel-title"><i class="fas fa-book-open text-accent-blue"></i> Guia Operacional de Métricas</div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 0.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 0.5rem; word-wrap: break-word; overflow-wrap: break-word;">
                 
                 <!-- GA4 -->
-                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2);">
+                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); overflow: hidden;">
                     <h3 style="color: var(--accent-blue); font-size: 1rem; margin-bottom: 0.75rem;"><i class="fas fa-chart-line"></i> 1. Google Analytics 4 (GA4)</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Eventos principais:</strong> <code>popup_view</code>, <code>popup_close</code>, <code>popup_submit</code>, <code>lead_saved</code>, <code>popup_error</code></p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Eventos principais:</strong> <code style="white-space: normal; word-break: break-all;">popup_view</code>, <code style="white-space: normal; word-break: break-all;">popup_close</code>, <code style="white-space: normal; word-break: break-all;">popup_submit</code>, <code style="white-space: normal; word-break: break-all;">lead_saved</code>, <code style="white-space: normal; word-break: break-all;">popup_error</code></p>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Também envia:</strong> pageviews, sessões, origem por UTM, partner_id.</p>
                     <div style="margin-top: 1rem; font-size: 0.85rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <strong style="color: #fff;">Onde olhar no GA4:</strong>
@@ -273,9 +274,9 @@
                 </div>
 
                 <!-- Meta -->
-                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2);">
+                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(59, 130, 246, 0.2); overflow: hidden;">
                     <h3 style="color: var(--accent-blue); font-size: 1rem; margin-bottom: 0.75rem;"><i class="fab fa-meta"></i> 2. Meta Events Manager</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Eventos principais:</strong> <code>PageView</code>, <code>Lead</code>, <code>ViewContent</code>, <code>CompleteRegistration</code></p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Eventos principais:</strong> <code style="white-space: normal; word-break: break-all;">PageView</code>, <code style="white-space: normal; word-break: break-all;">Lead</code>, <code style="white-space: normal; word-break: break-all;">ViewContent</code>, <code style="white-space: normal; word-break: break-all;">CompleteRegistration</code></p>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Este é o seu centro de mídia e criação de audiência para remarketing.</p>
                     <div style="margin-top: 1rem; font-size: 0.85rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <strong style="color: #fff;">Onde olhar no Meta:</strong>
@@ -288,7 +289,7 @@
                 </div>
 
                 <!-- CRM/n8n -->
-                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(16, 185, 129, 0.2);">
+                <div class="status-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(16, 185, 129, 0.2); overflow: hidden;">
                     <h3 style="color: var(--accent-green); font-size: 1rem; margin-bottom: 0.75rem;"><i class="fas fa-database"></i> 3. n8n / Sheets / CRM</h3>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;"><strong>Payload contém:</strong> Dados reais do lead, origem do parceiro, utms, data/hora, etc.</p>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Isso não é só analytics. É operação e inteligência comercial.</p>

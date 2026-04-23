@@ -216,6 +216,13 @@
   flex-shrink: 0;
 }
 
+.ldf-popup-input-row .ldf-popup-icon i {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: block !important;
+}
+
 /* Input dentro do row - sem borda própria */
 .ldf-popup-input {
   flex: 1;

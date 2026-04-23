@@ -515,11 +515,11 @@
   }
 
   // ============================================================
-  // EXIT INTENT - MOBILE (12s + 40% scroll + idle/visibilitychange)
+  // EXIT INTENT - MOBILE (15s + scroll up velocity)
   // ============================================================
 
   function setupMobileExitIntent() {
-    // Track interaction
+    // 1. Idle timer (resets on interaction)
     var interactionEvents = ['touchstart', 'touchmove', 'scroll', 'click'];
     interactionEvents.forEach(function (evt) {
       document.addEventListener(evt, function () {
@@ -527,25 +527,44 @@
         resetMobileIdle();
       }, { passive: true });
     });
-
-    // Idle timer (8s sem interação)
     resetMobileIdle();
 
-    // Volta para a aba
+    // 2. Volta para a aba / Troca de aba
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' || document.visibilityState === 'hidden') {
         setTimeout(function () {
           if (canShow()) openPopup();
         }, 500);
       }
     });
+
+    // 3. Fast Scroll Up (Simula Exit Intent real no mobile)
+    var lastY = window.scrollY || document.documentElement.scrollTop;
+    var lastTime = Date.now();
+    
+    window.addEventListener('scroll', function() {
+      var currentY = window.scrollY || document.documentElement.scrollTop;
+      var currentTime = Date.now();
+      var timeDiff = currentTime - lastTime;
+      
+      if (timeDiff > 0) {
+        var velocity = (currentY - lastY) / timeDiff; // px por ms
+        // Se rolou pra cima muito rápido (ex: menos de -1.5) e já passou do topo
+        if (velocity < -1.5 && currentY > 200) {
+          if (canShow()) openPopup();
+        }
+      }
+      
+      lastY = currentY;
+      lastTime = currentTime;
+    }, { passive: true });
   }
 
   function resetMobileIdle() {
     if (state.mobileIdleTimer) clearTimeout(state.mobileIdleTimer);
     state.mobileIdleTimer = setTimeout(function () {
       if (canShow()) openPopup();
-    }, 8000);
+    }, 15000); // 15 segundos sem interagir
   }
 
   // ============================================================
