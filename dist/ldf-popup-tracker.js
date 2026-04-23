@@ -33,7 +33,7 @@
     meta_pixel_id: '2079410829306095',
 
     // Webhook (fonte de verdade)
-    webhook_url: '',
+    webhook_url: 'https://n8n.grupofbn.com.br/webhook/popupldf',
 
     // Parâmetros de parceiro
     partner_param: 'partner_id',
