@@ -104,13 +104,15 @@
   function injectBanner() {
     if (document.getElementById('ldf-cookie-banner')) return;
 
+    var policyUrl = window.location.pathname.indexOf('/checkout/') !== -1 ? '../politica-de-privacidade.html' : 'politica-de-privacidade.html';
+
     var html = ''
     + '<div class="ldf-cookie-banner" id="ldf-cookie-banner" role="dialog" aria-label="Consentimento de cookies">'
     + '  <div class="ldf-cookie-inner">'
     + '    <div class="ldf-cookie-text">'
     + '      <p>Usamos cookies para melhorar sua experiência, personalizar conteúdo e analisar nosso tráfego. '
     + '      Ao clicar em "Aceitar", você concorda com o uso de cookies analíticos e de marketing. '
-    + '      <a href="/politica-de-privacidade.html" id="ldf-cookie-policy-link">Política de Privacidade</a></p>'
+    + '      <a href="' + policyUrl + '" id="ldf-cookie-policy-link">Política de Privacidade</a></p>'
     + '    </div>'
     + '    <div class="ldf-cookie-actions">'
     + '      <button class="ldf-cookie-btn ldf-cookie-btn-accept" id="ldf-cookie-accept">Aceitar</button>'
