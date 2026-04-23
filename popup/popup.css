@@ -23,11 +23,16 @@
   box-sizing: border-box !important;
 }
 
+.ldf-popup-overlay *:not(i):not([class*="fa-"]),
+.ldf-popup-overlay *::before:not([class*="fa-"]),
+.ldf-popup-overlay *::after:not([class*="fa-"]) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
 .ldf-popup-overlay *,
 .ldf-popup-overlay *::before,
 .ldf-popup-overlay *::after {
   box-sizing: border-box !important;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
 .ldf-popup-overlay.active {

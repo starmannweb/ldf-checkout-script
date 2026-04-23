@@ -18,11 +18,16 @@
   box-sizing: border-box !important;
 }
 
+.ldf-cookie-banner *:not(i):not([class*="fa-"]),
+.ldf-cookie-banner *::before:not([class*="fa-"]),
+.ldf-cookie-banner *::after:not([class*="fa-"]) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
 .ldf-cookie-banner *,
 .ldf-cookie-banner *::before,
 .ldf-cookie-banner *::after {
   box-sizing: border-box !important;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
 .ldf-cookie-banner.visible {
